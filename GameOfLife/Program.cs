@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace GameOfLife
@@ -13,7 +14,7 @@ namespace GameOfLife
         static void Main()
         {
             // Setup the engine and creat the main window.
-            SadConsole.Game.Create("C64.font", Width, Height);
+            SadConsole.Game.Create("Cheepicus12.font", Width, Height);
             
             // Hook the start event so we can add consoles to the system.
             SadConsole.Game.OnInitialize = Init;
@@ -39,12 +40,20 @@ namespace GameOfLife
         private static void Update(GameTime time)
         {
             // Called each logic update.
-            _board.Update();
+            Task.Run(() =>
+            {
+                _board.Update();
+            });
             
             // As an example, we'll use the F5 key to make the game full screen
             if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.F5))
             {
                 SadConsole.Settings.ToggleFullScreen();
+            }
+            
+            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.Escape))
+            {
+                SadConsole.Game.Instance.Exit();
             }
         }
 
