@@ -5,8 +5,8 @@ namespace GameOfLife
 {
     class Program
     {
-        private const int Width = 50;
-        private const int Height = 50;
+        private const int Width = 100;
+        private const int Height = 100;
         private static GameBoard _board;
         private static SadConsole.Console _console;
 
@@ -22,10 +22,13 @@ namespace GameOfLife
             SadConsole.Game.OnUpdate = Update;
 
             SadConsole.Game.OnDraw = Draw;
+
+            SadConsole.Game.Instance.IsFixedTimeStep = true;
+            SadConsole.Game.Instance.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 250);
             
             // Start the game.
             SadConsole.Game.Instance.Run();
-
+            
             //
             // Code here will not run until the game window closes.
             //
@@ -77,7 +80,7 @@ namespace GameOfLife
             {
                 for (var j = 0; j < Height; j++)
                 {
-                    _console.Fill(new Rectangle(i, j, 1, 1), null, _board.Board[i, j] ? Color.White : Color.Black, 0);
+                    _console.Fill(new Rectangle(i, j, 1, 1), null, _board.Board[i, j] ? Color.Wheat : Color.Blue, 0);
                 }
             }
         }
